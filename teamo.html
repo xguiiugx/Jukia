@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Meu Amor 💜</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='28' x='-7' font-size='32'>💜</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #0a0a0a, #1a0a1a, #0f0320, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Partículas brilhantes */
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fff, transparent);
+            border-radius: 50%;
+            animation: sparkleFloat 8s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Corações */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .heart {
+            position: absolute;
+            color: #8b5cf6;
+            font-size: 16px;
+            animation: float 12s infinite linear;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-10vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateY(0) translateX(5px) scale(1);
+            }
+
+            50% {
+                transform: translateY(50vh) translateX(-10px) scale(1.2);
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) translateX(20px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Player com animação de entrada */
+        .spotify-player {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 10;
+            position: relative;
+            margin-bottom: 25px;
+            animation: slideInFromTop 1s ease-out;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spotify-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        @keyframes slideInFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spotify-player iframe {
+            width: 100%;
+            height: 80px;
+            border: none;
+        }
+
+        /* Carrossel com animações */
+        .carousel-container {
+            animation: slideInFromLeft 1.2s ease-out 0.3s both;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .carousel-frame {
+            width: 280px;
+            height: 420px;
+            overflow: hidden;
+            border-radius: 24px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .carousel-frame:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .carousel-images img {
+            width: 280px;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 24px;
+            flex-shrink: 0;
+            transition: filter 0.3s ease;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #555;
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dot:hover {
+            background-color: #8b5cf6;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .dot.active {
+            background-color: #b85de9;
+            width: 24px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(184, 93, 233, 0.6);
+        }
+
+        .dot.active::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 1px solid rgba(184, 93, 233, 0.3);
+            border-radius: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        /* Contador de amor com animação */
+        .love-counter {
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            position: relative;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 320px;
+            animation: slideInFromRight 1.4s ease-out 0.6s both;
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .love-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .love-heart {
+            color: #8b5cf6;
+            font-size: 20px;
+            animation: heartbeat 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .counter-display {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 18px 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-display:hover {
+            background: rgba(139, 92, 246, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .counter-text {
+            font-size: 17px;
+            color: #b85de9;
+            font-weight: 500;
+            line-height: 1.4;
+            animation: textGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(184, 93, 233, 0.3);
+            }
+
+            100% {
+                text-shadow: 0 0 15px rgba(184, 93, 233, 0.6);
+            }
+        }
+
+        /* Mensagem romântica */
+        .love-message {
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            z-index: 10;
+            position: relative;
+            padding: 0 10px;
+            animation: fadeInUp 1.6s ease-out 0.9s both;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-greeting {
+            color: #999;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-style: italic;
+            font-weight: 300;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            margin-left: auto;
+            margin-right: auto;
+            border-right: 2px solid transparent;
+        }
+
+        .message-greeting.start-typing {
+            border-right: 2px solid #8b5cf6;
+            animation: typewriter 2s steps(12) 0.5s both, blink 1s step-end infinite 0.5s;
+        }
+
+        @keyframes typewriter {
+            0% {
+                width: 0;
+            }
+
+            90% {
+                width: 100%;
+                border-right: 2px solid #8b5cf6;
+            }
+
+            100% {
+                width: 100%;
+                border-right: none;
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                border-color: #8b5cf6;
+            }
+
+            51%,
+            100% {
+                border-color: transparent;
+            }
+        }
+
+        .message-text {
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            text-align: center;
+            opacity: 0;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message-text.show {
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .message-highlight {
+            color: #b85de9;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0;
+        }
+
+        .message-highlight.show {
+            animation: glowText 1s ease-out 0.3s both, textPulse 3s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes glowText {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes textPulse {
+
+            0%,
+            100% {
+                text-shadow: 0 0 8px rgba(184, 93, 233, 0.6);
+            }
+
+            50% {
+                text-shadow: 0 0 25px rgba(184, 93, 233, 0.9), 0 0 35px rgba(184, 93, 233, 0.4);
+            }
+        }
+
+        .message-signature {
+            color: #999;
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0;
+        }
+
+        .message-signature.show {
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        .signature-name {
+            margin-top: 5px;
+            color: #bbb;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        /* Media queries para iPhone 12 específico */
+        @media screen and (max-width: 390px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .spotify-player {
+                max-width: 300px;
+                margin-bottom: 20px;
+            }
+
+            .spotify-player iframe {
+                height: 80px;
+            }
+
+            .carousel-frame {
+                width: 280px;
+                height: 380px;
+                margin-bottom: 12px;
+            }
+
+            .carousel-images img {
+                width: 280px;
+                height: 380px;
+            }
+
+            .love-counter {
+                max-width: 300px;
+                margin-bottom: 20px;
+            }
+
+            .love-title {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .counter-display {
+                padding: 15px 12px;
+            }
+
+            .counter-text {
+                font-size: 13px;
+            }
+
+            .love-message {
+                max-width: 300px;
+            }
+
+            .message-text {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            .message-highlight {
+                font-size: 13px;
+            }
+
+            .heart {
+                font-size: 14px;
+            }
+        }
+
+        /* Media queries para telas ainda menores */
+        @media screen and (max-width: 360px) {
+            .carousel-frame {
+                width: 260px;
+                height: 360px;
+            }
+
+            .carousel-images img {
+                width: 260px;
+                height: 360px;
+            }
+        }
+
+        /* Otimizações para performance em mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .dot:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Otimizações para performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Melhorias de acessibilidade */
+        .dot:focus {
+            outline: 2px solid #8b5cf6;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sparkles"></div>
+    <div class="floating-hearts"></div>
+
+    <!-- PLAYER DO SPOTIFY -->
+    <div class="spotify-player">
+        <iframe style="border-radius:12px"
+            src="https://open.spotify.com/embed/track/4pjqWL23sQ2gGQIbyw8lXL?utm_source=generator" width="100%"
+            height="152" frameBorder="0" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+    <!-- CARROSSEL -->
+    <div class="carousel-container">
+        <div class="carousel-frame">
+            <div class="carousel-images" id="carousel">
+                <img src="/img/Foto1.jpg" alt="Foto 1">
+                <img src="/img/foto2.jpg" alt="Foto 2">
+                <img src="/img/foto3.jpg" alt="Foto 3">
+                <img src="/img/foto4.jpg" alt="Foto 4">
+                <img src="/img/foto5.jpg" alt="Foto 5">
+                <img src="/img/foto6.jpg" alt="Foto 6">
+                <img src="/img/foto7.jpg" alt="Foto 7">
+                <img src="/img/Foto8.jpg" alt="Foto 8">
+            </div>
+        </div>
+
+        <!-- BOLINHAS -->
+        <div class="dots" id="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- CONTADOR DE AMOR -->
+    <div class="love-counter">
+        <div class="love-title">
+            Eu te amo há: <span class="love-heart">💜</span>
+        </div>
+        <div class="counter-display">
+            <div class="counter-text" id="loveCounter">
+                Calculando...
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAGEM ROMÂNTICA -->
+    <div class="love-message">
+        <div class="message-greeting" id="greeting">Meu amor,</div>
+
+        <div class="message-text" id="messageText">
+            Hoje é Dia dos Namorados, mas amar você é algo que acontece todos os dias. Cada dia ao seu lado já é
+            especial por si só. A gente ri junto das bobeiras, se apoia nas horas difíceis e se entende até no silêncio.
+            Desde o dia 25 de junho de 2024, quando eu disse "eu te amo" pela primeira vez, tudo ganhou um novo sentido.
+            Não foi só mais um momento. Uma virada, uma entrega, a certeza de que o que eu sentia era real demais pra
+            ficar guardado. E desde então, cada segundo que passou está contado ali em cima. Não pra medir o tempo, mas
+            pra lembrar que o amor que começou ali só cresceu. Você tem esse jeito de transformar a vida em algo mais
+            leve, mais bonito, mais nosso. Você me faz sentir em paz, me faz querer ser melhor, me faz acreditar que o
+            amor de verdade existe sim. E é exatamente o que a gente tem.
+        </div>
+
+        <div class="message-highlight" id="messageHighlight">Eu te amo infinitamente. 💜</div>
+
+        <div class="message-signature" id="messageSignature">
+            <div>Com amor,</div>
+            <div class="signature-name">Guilherme.</div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        // Partículas brilhantes
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.animationDuration = (Math.random() * 5 + 6) + 's';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+
+            document.querySelector('.sparkles').appendChild(sparkle);
+
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 12000);
+        }
+
+        // Cria partículas a cada 800ms
+        setInterval(createSparkle, 800);
+
+        // Corações flutuantes
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = Math.random() > 0.5 ? '💜' : '💜';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+
+            document.querySelector('.floating-hearts').appendChild(heart);
+
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 20000);
+        }
+
+        // Cria corações a cada 2 segundos
+        setInterval(createFloatingHeart, 2000);
+
+        // CARROSSEL
+        const carousel = document.getElementById('carousel');
+        const dots = document.querySelectorAll('.dot');
+        const totalImages = dots.length;
+        let current = 0;
+        let autoPlayInterval;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${current * 280}px)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[current].classList.add('active');
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                current = (current + 1) % totalImages;
+                updateCarousel();
+            }, 3500);
+        }
+
+        function restartAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // Inicia o auto-play
+        startAutoPlay();
+
+        // Adiciona clique nos dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                current = index;
+                updateCarousel();
+                restartAutoPlay();
+            });
+        });
+
+        // CONTADOR DE AMOR
+        function updateLoveCounter() {
+            const startDate = new Date('2024-06-25T00:00:00');
+            const now = new Date();
+            const diff = now - startDate;
+
+            const years = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
+            const months = Math.floor((diff % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000));
+            const days = Math.floor((diff % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+            const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+            const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+            const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+
+            let counterText = '';
+
+            if (years > 0) {
+                counterText += `${years} ${years === 1 ? 'ano' : 'anos'}`;
+                if (months > 0 || days > 0 || hours > 0 || minutes > 0) counterText += ', ';
+            }
+
+            if (months > 0) {
+                counterText += `${months} ${months === 1 ? 'mês' : 'meses'}`;
+                if (days > 0 || hours > 0 || minutes > 0) counterText += ', ';
+            }
+
+            if (days > 0) {
+                counterText += `${days} ${days === 1 ? 'dia' : 'dias'}`;
+                if (hours > 0 || minutes > 0) counterText += ', ';
+            }
+
+            if (hours > 0) {
+                counterText += `${hours} ${hours === 1 ? 'hora' : 'horas'}`;
+                if (minutes > 0) counterText += ', ';
+            }
+
+            if (minutes > 0) {
+                counterText += `${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}`;
+            }
+
+            counterText += ` e ${seconds} ${seconds === 1 ? 'segundo' : 'segundos'}`;
+
+            document.getElementById('loveCounter').textContent = counterText;
+        }
+
+        // Atualiza o contador a cada segundo
+        updateLoveCounter();
+        setInterval(updateLoveCounter, 1000);
+
+        // Animações da mensagem
+        setTimeout(() => {
+            document.getElementById('greeting').classList.add('start-typing');
+        }, 2000);
+
+        setTimeout(() => {
+            document.getElementById('messageText').classList.add('show');
+        }, 4500);
+
+        setTimeout(() => {
+            document.getElementById('messageHighlight').classList.add('show');
+        }, 5500);
+
+        setTimeout(() => {
+            document.getElementById('messageSignature').classList.add('show');
+        }, 6500);
+
+        // === CARROSSEL COM SWIPE E LOOP ===
+        const imageWidth = 280;
+
+        // Movimento real-time
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID;
+        let currentIndex = 0;
+
+        // Atualiza o carrossel
+        function updateCarousel(index) {
+            currentIndex = index % totalImages;
+            if (currentIndex < 0) currentIndex = totalImages - 1;
+
+            currentTranslate = -currentIndex * imageWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
+
+        // Inicia autoplay
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                updateCarousel(currentIndex + 1);
+            }, 4000);
+        }
+
+        // Reinicia autoplay
+        function restartAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // Controla a posição em tempo real
+        function setSliderPosition() {
+            carousel.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        // Animação contínua (enquanto arrasta)
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        // Início do toque/clique
+        function touchStart(index) {
+            return function (event) {
+                isDragging = true;
+                startPos = getPositionX(event);
+                animationID = requestAnimationFrame(animation);
+                carousel.classList.add('grabbing');
+            };
+        }
+
+        // Movimentação
+        function touchMove(event) {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(event);
+            const diff = currentPosition - startPos;
+            currentTranslate = prevTranslate + diff;
+        }
+
+        // Fim do toque/clique
+        function touchEnd() {
+            cancelAnimationFrame(animationID);
+            isDragging = false;
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -50) {
+                updateCarousel(currentIndex + 1); // Avança
+            } else if (movedBy > 50) {
+                updateCarousel(currentIndex - 1); // Volta
+            } else {
+                updateCarousel(currentIndex); // Volta pro lugar
+            }
+
+            carousel.classList.remove('grabbing');
+            restartAutoPlay();
+        }
+
+        // Utilitário para detectar posição do toque ou mouse
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        // Eventos de mouse e touch
+        carousel.addEventListener('mousedown', touchStart(currentIndex));
+        carousel.addEventListener('mousemove', touchMove);
+        carousel.addEventListener('mouseup', touchEnd);
+        carousel.addEventListener('mouseleave', () => { if (isDragging) touchEnd(); });
+
+        carousel.addEventListener('touchstart', touchStart(currentIndex));
+        carousel.addEventListener('touchmove', touchMove);
+        carousel.addEventListener('touchend', touchEnd);
+
+        // Bolinhas clicáveis
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                updateCarousel(index);
+                restartAutoPlay();
+            });
+        });
+
+        // Inicia carrossel
+        updateCarousel(0);
+        startAutoPlay();
+
+        // Ao passar o mouse no carrossel, reinicia o autoplay (como se clicasse no dot)
+        carousel.addEventListener('mouseenter', () => {
+            restartAutoPlay();
+        });
+
+        // Quando tirar o mouse, mantém o autoplay funcionando
+        carousel.addEventListener('mouseleave', () => {
+            restartAutoPlay();
+        });
+
+
+    </script>
+
+</body>
+
+</html>

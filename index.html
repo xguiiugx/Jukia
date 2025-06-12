@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Meu Amor 💜</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='28' x='-7' font-size='32'>💜</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #0a0a0a 100%);
+            height: 100vh;
+            height: 100dvh; /* Para dispositivos móveis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .logo-container {
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .logo {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%);
+            padding: clamp(12px, 4vw, 16px) clamp(30px, 8vw, 40px);
+            border-radius: clamp(20px, 5vw, 25px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 2vw, 8px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            max-width: 90vw;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(139, 92, 246, 0.6);
+        }
+        
+        .logo:active {
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .heart {
+            color: #f472b6;
+            font-size: clamp(16px, 4vw, 18px);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        .text {
+            color: white;
+            font-size: clamp(18px, 4.5vw, 20px);
+            font-weight: 600;
+            letter-spacing: clamp(0.5px, 0.2vw, 1px);
+        }
+        
+
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+
+        
+        /* Efeito de partículas flutuantes */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(139, 92, 246, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+        
+        /* Efeito de brilho no fundo */
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(300px, 80vw);
+            height: min(300px, 80vw);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: glow 4s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Media queries para ajustes específicos */
+        @media (max-width: 480px) {
+            .logo {
+                padding: 14px 32px;
+            }
+            
+            .particles {
+                display: none; /* Remove partículas em telas muito pequenas */
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .logo {
+                padding: 12px 28px;
+            }
+            
+            .text {
+                font-size: 16px;
+            }
+            
+            .heart {
+                font-size: 14px;
+            }
+        }
+        
+        /* Para telas grandes */
+        @media (min-width: 1200px) {
+            .logo {
+                padding: 20px 48px;
+            }
+            
+            .text {
+                font-size: 24px;
+            }
+            
+            .heart {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="glow"></div>
+    
+    <div class="logo-container">
+        <a href="teamo.html" class="logo">
+            <span class="heart">🤍</span>
+            <span class="text">CLIQUE</span>
+        </a>
+
+    </div>
+</body>
+</html>
